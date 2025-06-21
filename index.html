@@ -3,74 +3,164 @@
 <head>
   <meta charset="UTF-8">
   <title>Sales Analytics Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --bg: #f7f7f7;
+      --card-bg: white;
+      --text: #2c3e50;
+      --accent: #3498db;
+      --subtext: #555;
+    }
+    body.dark {
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --text: #f5f5f5;
+      --subtext: #aaa;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       font-family: Arial, sans-serif;
-      background: #f7f7f7;
       margin: 0;
       padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
     }
+
     header {
-      background: #2c3e50;
+      background: var(--text);
       color: white;
       padding: 20px;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
+
     .subheader {
       font-size: 16px;
-      color: #bdc3c7;
+      color: #f1c40f;
       font-style: italic;
       margin-top: 5px;
     }
-    .wide-image {
-      width: 100%;
-      display: block;
-      margin-bottom: 10px;
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 5px 12px;
+      background: #f1c40f;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
     }
-    .caption {
-      text-align: center;
-      font-size: 15px;
-      color: #555;
-      margin-bottom: 30px;
-    }
+
     .dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
       gap: 20px;
       padding: 20px;
     }
+
     .card {
-      background: white;
+      background: var(--card-bg);
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      border-left: 6px solid var(--accent);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
     }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
     .card h3 {
       margin-top: 0;
-      color: #2c3e50;
+      color: var(--accent);
     }
+
     .card img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-    .description {
-      color: #444;
-      font-size: 15px;
-      line-height: 1.6;
-    }
+  width: 105%; /* increase width slightly */
+  margin-left: -2.5%; /* center the slightly wider image */
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
     .description ul {
       margin: 0;
       padding-left: 20px;
+      color: var(--subtext);
     }
+
+    .wide-image {
+      width: 90%;
+      display: block;
+      margin: 40px auto 10px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .footer-box {
+      background: var(--card-bg);
+      border-left: 6px solid var(--accent);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+      color: var(--subtext);
+    }
+
     footer {
       text-align: center;
       padding: 15px;
-      background: #2c3e50;
+      background: var(--text);
       color: #f1c40f;
       font-size: 14px;
-      font-family: Arial;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .lightbox:target { display: flex; }
+
+    @media(max-width: 600px) {
+      .toggle-theme {
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -78,62 +168,121 @@
 
 <header>
   <h1>Web-Based Sales Analytics Dashboard</h1>
-  <p class="subheader">Created by <span style="color: #f1c40f;"><strong>Hari Om Thakur</strong></span></p>
+  <p class="subheader">Created by <strong>Hari Om Thakur</strong></p>
+  <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
 </header>
 
-<!-- Wide Image Section -->
+<!-- 🟦 TOP IMAGE: Processed Sales Data -->
 <img src="sales_data.png" alt="Processed Sales Data" class="wide-image">
-<p class="caption">This is processed data from raw data</p>
 
 <section class="dashboard">
   <div class="card">
     <h3>Top Products</h3>
-    <img src="top_product.png" alt="Top Products Chart" />
+    <a href="#img1"><img src="top_product.png" alt="Top Products Chart"></a>
     <div class="description">
       <ul>
-        <li>This bar chart shows the top-selling SKUs (products) based on total sales amount.</li>
-        <li>Helps identify high-revenue items for decision-making.</li>
+        <li>Top-selling SKUs based on total sales amount.</li>
+        <li>Helps identify high-revenue items.</li>
       </ul>
     </div>
   </div>
 
   <div class="card">
     <h3>Monthly Sales Trend</h3>
-    <img src="monthly_sales_trends.png" alt="Monthly Sales Trend" />
+    <a href="#img2"><img src="monthly_sales_trends.png" alt="Monthly Sales Trend"></a>
     <div class="description">
       <ul>
-        <li>Line chart showing how sales change over months.</li>
-        <li>Highlights trends and seasonality.</li>
+        <li>Sales trends over months.</li>
+        <li>Highlights seasonality patterns.</li>
       </ul>
     </div>
   </div>
 
   <div class="card">
     <h3>Gender-wise Sales</h3>
-    <img src="gender_wisse_sales.png" alt="Gender-wise Sales" />
+    <a href="#img3"><img src="gender_wisse_sales.png" alt="Gender-wise Sales"></a>
     <div class="description">
       <ul>
-        <li>Pie chart comparing revenue contribution by gender.</li>
-        <li>Helpful for audience targeting and personalization.</li>
+        <li>Revenue breakdown by gender.</li>
+        <li>Supports targeted marketing.</li>
       </ul>
     </div>
   </div>
 
   <div class="card">
     <h3>Category-wise Performance</h3>
-    <img src="Category-wise_Sales.png" alt="Category-wise Performance" />
+    <a href="#img4"><img src="Category-wise_Sales.png" alt="Category-wise Performance"></a>
     <div class="description">
       <ul>
-        <li>Shows which categories performed best in sales.</li>
-        <li>Useful for category planning and promotion.</li>
+        <li>Performance of different product categories.</li>
+        <li>Guides product planning.</li>
       </ul>
     </div>
   </div>
 
   <div class="card">
     <h3>Customer Spend Distribution</h3>
-    <img src="Average_Order_Value per_Customer.png" alt="Customer Spend Distribution" />
+    <a href="#img5"><img src="Average_Order_Value per_Customer.png" alt="Customer Spend Distribution"></a>
     <div class="description">
       <ul>
-        <li>Histogram of average spending per customer.</li>
-        <li>Helps identify buyer segments and plan offers.</l
+        <li>Distribution of spending per customer.</li>
+        <li>Helps understand buyer behavior.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🟩 FINAL IMAGE: Full Dashboard View -->
+<img src="dashboard.png" alt="Final Dashboard Overview" class="wide-image">
+
+<div class="footer-box">
+  <h3>About the Data</h3>
+  <p>
+    This dashboard visualizes insights extracted from cleaned and preprocessed store sales data. The dataset includes fields such as Order ID, Customer ID, Gender, Age Group, Product Category, Quantity, Amount, and Shipping Location. Each chart above highlights a specific business metric derived from this dataset:
+  </p>
+  <ul>
+    <li><strong>Top Products</strong> – Displays the highest revenue-generating SKUs to identify best-sellers.</li>
+    <li><strong>Monthly Sales Trend</strong> – Shows how total sales fluctuate month by month, useful for detecting seasonality.</li>
+    <li><strong>Gender-wise Sales</strong> – Breaks down total revenue by gender to understand customer demographics.</li>
+    <li><strong>Category-wise Performance</strong> – Highlights which product categories contribute most to overall sales.</li>
+    <li><strong>Customer Spend Distribution</strong> – Illustrates how much customers typically spend on average, helping define buyer segments.</li>
+  </ul>
+  <p>
+    The visual summaries were created using Python (Pandas, Matplotlib/Seaborn) and combined into this responsive HTML dashboard for clear, interactive presentation.
+  </p>
+</div>
+
+
+<footer>
+  &copy; 2025 - Sales Analysis by Hari Om Thakur
+</footer>
+
+<!-- Lightboxes -->
+<div id="img1" class="lightbox"><a href="#"><img src="top_product.png" alt=""></a></div>
+<div id="img2" class="lightbox"><a href="#"><img src="monthly_sales_trends.png" alt=""></a></div>
+<div id="img3" class="lightbox"><a href="#"><img src="gender_wisse_sales.png" alt=""></a></div>
+<div id="img4" class="lightbox"><a href="#"><img src="Category-wise_Sales.png" alt=""></a></div>
+<div id="img5" class="lightbox"><a href="#"><img src="Average_Order_Value per_Customer.png" alt=""></a></div>
+
+<!-- JavaScript -->
+<script>
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(card => {
+    observer.observe(card);
+  });
+
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+  }
+</script>
+
+</body>
+</html>
