@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Analytics Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .subheader {
+      font-size: 16px;
+      color: #bdc3c7;
+      font-style: italic;
+      margin-top: 5px;
+    }
+    .wide-image {
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .caption {
+      text-align: center;
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .description {
+      color: #444;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .description ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #2c3e50;
+      color: #f1c40f;
+      font-size: 14px;
+      font-family: Arial;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Web-Based Sales Analytics Dashboard</h1>
+  <p class="subheader">Created by <span style="color: #f1c40f;"><strong>Hari Om Thakur</strong></span></p>
+</header>
+
+<!-- Wide Image Section -->
+<img src="sales_data.png" alt="Processed Sales Data" class="wide-image">
+<p class="caption">This is processed data from raw data</p>
+
+<section class="dashboard">
+  <div class="card">
+    <h3>Top Products</h3>
+    <img src="top_product.png" alt="Top Products Chart" />
+    <div class="description">
+      <ul>
+        <li>This bar chart shows the top-selling SKUs (products) based on total sales amount.</li>
+        <li>Helps identify high-revenue items for decision-making.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Monthly Sales Trend</h3>
+    <img src="monthly_sales_trends.png" alt="Monthly Sales Trend" />
+    <div class="description">
+      <ul>
+        <li>Line chart showing how sales change over months.</li>
+        <li>Highlights trends and seasonality.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Gender-wise Sales</h3>
+    <img src="gender_wisse_sales.png" alt="Gender-wise Sales" />
+    <div class="description">
+      <ul>
+        <li>Pie chart comparing revenue contribution by gender.</li>
+        <li>Helpful for audience targeting and personalization.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Category-wise Performance</h3>
+    <img src="Category-wise_Sales.png" alt="Category-wise Performance" />
+    <div class="description">
+      <ul>
+        <li>Shows which categories performed best in sales.</li>
+        <li>Useful for category planning and promotion.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Customer Spend Distribution</h3>
+    <img src="Average_Order_Value per_Customer.png" alt="Customer Spend Distribution" />
+    <div class="description">
+      <ul>
+        <li>Histogram of average spending per customer.</li>
+        <li>Helps identify buyer segments and plan offers.</l
